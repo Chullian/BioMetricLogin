@@ -7,8 +7,6 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-import java.util.function.Function;
-
 public class MyApp extends Application {
 
     static boolean wasInForeground = false;
@@ -16,6 +14,10 @@ public class MyApp extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+
+        NetworkCheckingUtil networkCheckingUtil = new NetworkCheckingUtil(getApplicationContext());
+        networkCheckingUtil.checkNetwork();
+        networkCheckingUtil.registerNetworkCallbackEvents();
         registerActivityLifecycleCallbacks(new LifeCycleTracker(new LifeCycleCallback() {
             @Override
             public void isAppForeground(Boolean isForeground) {

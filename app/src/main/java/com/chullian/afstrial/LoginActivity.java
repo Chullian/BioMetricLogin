@@ -4,6 +4,7 @@ package com.chullian.afstrial;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -54,7 +55,12 @@ public class LoginActivity extends AppCompatActivity {
                 .build();
         Button biometricLoginButton = findViewById(R.id.biometric_login);
         biometricLoginButton.setOnClickListener(view -> {
+            boolean isNetworkAvailable = Boolean.TRUE.equals(NetworkStateManager.getInstance().getNetworkConnectivityStatus().getValue());
+            if(isNetworkAvailable)
             biometricPrompt.authenticate(promptInfo);
+            else{
+                Toast.makeText(this, "No Internet", Toast.LENGTH_SHORT).show();
+            }
         });
 
     }
